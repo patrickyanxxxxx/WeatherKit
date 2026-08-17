@@ -53,6 +53,7 @@ export default new Hono()
         return HonoWorkerAdapter.writeResponse(c, $response);
     })
     .onError((e, c) => {
-        console.error(e);
-        return c.body(e.message, 500);
+        const message = e?.message || String(e);
+        console.error(`WeatherKit Worker error: ${message}`, e?.stack);
+        return c.body(message, 500);
     });

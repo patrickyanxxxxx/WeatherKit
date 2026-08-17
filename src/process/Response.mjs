@@ -100,33 +100,39 @@ export async function Response($request, $response) {
 
                                 await Promise.all(
                                     parameters.dataSets.map(async dataSet => {
-                                        switch (dataSet) {
-                                            case "airQuality": {
-                                                body.airQuality = await InjectAirQuality(body.airQuality, Settings, Caches, enviroments);
-                                                break;
+                                        // A provider failure must not turn the complete WeatherKit payload into a 500.
+                                        // Keep Apple's decoded dataset when an optional replacement cannot be produced.
+                                        try {
+                                            switch (dataSet) {
+                                                case "airQuality": {
+                                                    body.airQuality = await InjectAirQuality(body.airQuality, Settings, Caches, enviroments);
+                                                    break;
+                                                }
+                                                case "currentWeather": {
+                                                    body.currentWeather = await InjectCurrentWeather(body.currentWeather, Settings, enviroments);
+                                                    break;
+                                                }
+                                                case "forecastDaily": {
+                                                    body.forecastDaily = await InjectForecastDaily(body.forecastDaily, Settings, enviroments);
+                                                    break;
+                                                }
+                                                case "forecastHourly": {
+                                                    body.forecastHourly = await InjectForecastHourly(body.forecastHourly, Settings, enviroments);
+                                                    break;
+                                                }
+                                                case "forecastNextHour": {
+                                                    body.forecastNextHour = await InjectForecastNextHour(body.forecastNextHour, Settings, enviroments);
+                                                    break;
+                                                }
+                                                case "weatherAlerts": {
+                                                    body.weatherAlerts = await InjectWeatherAlerts(body.weatherAlerts, Settings, enviroments);
+                                                    break;
+                                                }
+                                                default:
+                                                    break;
                                             }
-                                            case "currentWeather": {
-                                                body.currentWeather = await InjectCurrentWeather(body.currentWeather, Settings, enviroments);
-                                                break;
-                                            }
-                                            case "forecastDaily": {
-                                                body.forecastDaily = await InjectForecastDaily(body.forecastDaily, Settings, enviroments);
-                                                break;
-                                            }
-                                            case "forecastHourly": {
-                                                body.forecastHourly = await InjectForecastHourly(body.forecastHourly, Settings, enviroments);
-                                                break;
-                                            }
-                                            case "forecastNextHour": {
-                                                body.forecastNextHour = await InjectForecastNextHour(body.forecastNextHour, Settings, enviroments);
-                                                break;
-                                            }
-                                            case "weatherAlerts": {
-                                                body.weatherAlerts = await InjectWeatherAlerts(body.weatherAlerts, Settings, enviroments);
-                                                break;
-                                            }
-                                            default:
-                                                break;
+                                        } catch (error) {
+                                            Console.error(`WeatherKit ${dataSet} injection failed`, error?.stack ?? error?.message ?? String(error));
                                         }
                                     }),
                                 );
