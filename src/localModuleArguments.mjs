@@ -1,5 +1,5 @@
 export const endpoint = "weatherkit.1976950515yty.workers.dev";
-export const requestScriptURL = "https://raw.githubusercontent.com/patrickyanxxxxx/WeatherKit/main/modules/iRingo.WeatherKit.Local.js";
+export const requestScriptURL = "https://weatherkit.1976950515yty.workers.dev/modules/iRingo.WeatherKit.Local.js";
 
 export const argumentsList = [
     { key: "DataSets", value: "airQuality,currentWeather,forecastDaily,forecastHourly,forecastNextHour,weatherAlerts", type: "input" },

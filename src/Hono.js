@@ -2,6 +2,8 @@ import { Hono } from "hono/tiny";
 import { fetch } from "@nsnanocat/util";
 import egernLocalModule from "./egernLocalModule.mjs";
 import egernModule from "./egernModule.mjs";
+import localRequestScript from "./localRequestScript.mjs";
+import loonLocalPlugin from "./loonLocalPlugin.mjs";
 import HonoWorkerAdapter from "./class/HonoWorkerAdapter.mjs";
 import { Request } from "./process/Request.mjs";
 import { Response } from "./process/Response.mjs";
@@ -19,6 +21,18 @@ export default new Hono()
         c.body(egernLocalModule, 200, {
             "Cache-Control": "public, max-age=300",
             "Content-Type": "application/yaml; charset=utf-8",
+        }),
+    )
+    .get("/modules/iRingo.WeatherKit.Local.lpx", c =>
+        c.body(loonLocalPlugin, 200, {
+            "Cache-Control": "public, max-age=300",
+            "Content-Type": "text/plain; charset=utf-8",
+        }),
+    )
+    .get("/modules/iRingo.WeatherKit.Local.js", c =>
+        c.body(localRequestScript, 200, {
+            "Cache-Control": "public, max-age=300",
+            "Content-Type": "application/javascript; charset=utf-8",
         }),
     )
     .all("/:rest{.*}", async c => {

@@ -41,25 +41,25 @@ scriptings:
 - http_request:
     name: WeatherKit.availability.request
     match: ^https?:\/\/weatherkit\.apple\.com\/api\/v1\/availability\/
-    script_url: https://raw.githubusercontent.com/patrickyanxxxxx/WeatherKit/main/modules/iRingo.WeatherKit.Local.js
+    script_url: https://weatherkit.1976950515yty.workers.dev/modules/iRingo.WeatherKit.Local.js
     env:
       _compat.$argument: endpoint="{{{endpoint}}}"&DataSets="{{{DataSets}}}"&Weather.Provider="{{{Weather.Provider}}}"&WeatherAlerts.Provider="{{{WeatherAlerts.Provider}}}"&NextHour.Provider="{{{NextHour.Provider}}}"&AirQuality.Current.Pollutants.Provider="{{{AirQuality.Current.Pollutants.Provider}}}"&AirQuality.Calculate.Algorithm="{{{AirQuality.Calculate.Algorithm}}}"&API.ColorfulClouds.Token="{{{API.ColorfulClouds.Token}}}"&API.QWeather.Host="{{{API.QWeather.Host}}}"&API.QWeather.Token="{{{API.QWeather.Token}}}"&API.WAQI.Token="{{{API.WAQI.Token}}}"&Storage="{{{Storage}}}"&LogLevel="{{{LogLevel}}}"
 - http_request:
     name: WeatherKit.airQualityScale.request
     match: ^https?:\/\/weatherkit\.apple\.com\/api\/v1\/airQualityScale\/
-    script_url: https://raw.githubusercontent.com/patrickyanxxxxx/WeatherKit/main/modules/iRingo.WeatherKit.Local.js
+    script_url: https://weatherkit.1976950515yty.workers.dev/modules/iRingo.WeatherKit.Local.js
     env:
       _compat.$argument: endpoint="{{{endpoint}}}"&DataSets="{{{DataSets}}}"&Weather.Provider="{{{Weather.Provider}}}"&WeatherAlerts.Provider="{{{WeatherAlerts.Provider}}}"&NextHour.Provider="{{{NextHour.Provider}}}"&AirQuality.Current.Pollutants.Provider="{{{AirQuality.Current.Pollutants.Provider}}}"&AirQuality.Calculate.Algorithm="{{{AirQuality.Calculate.Algorithm}}}"&API.ColorfulClouds.Token="{{{API.ColorfulClouds.Token}}}"&API.QWeather.Host="{{{API.QWeather.Host}}}"&API.QWeather.Token="{{{API.QWeather.Token}}}"&API.WAQI.Token="{{{API.WAQI.Token}}}"&Storage="{{{Storage}}}"&LogLevel="{{{LogLevel}}}"
 - http_request:
     name: WeatherKit.weatherAlerts.request
     match: ^https?:\/\/weatherkit\.apple\.com\/api\/v1\/weatherAlerts\?
-    script_url: https://raw.githubusercontent.com/patrickyanxxxxx/WeatherKit/main/modules/iRingo.WeatherKit.Local.js
+    script_url: https://weatherkit.1976950515yty.workers.dev/modules/iRingo.WeatherKit.Local.js
     env:
       _compat.$argument: endpoint="{{{endpoint}}}"&DataSets="{{{DataSets}}}"&Weather.Provider="{{{Weather.Provider}}}"&WeatherAlerts.Provider="{{{WeatherAlerts.Provider}}}"&NextHour.Provider="{{{NextHour.Provider}}}"&AirQuality.Current.Pollutants.Provider="{{{AirQuality.Current.Pollutants.Provider}}}"&AirQuality.Calculate.Algorithm="{{{AirQuality.Calculate.Algorithm}}}"&API.ColorfulClouds.Token="{{{API.ColorfulClouds.Token}}}"&API.QWeather.Host="{{{API.QWeather.Host}}}"&API.QWeather.Token="{{{API.QWeather.Token}}}"&API.WAQI.Token="{{{API.WAQI.Token}}}"&Storage="{{{Storage}}}"&LogLevel="{{{LogLevel}}}"
 - http_request:
     name: WeatherKit.weather.request
     match: ^https?:\/\/weatherkit\.apple\.com\/api\/v2\/weather\/
-    script_url: https://raw.githubusercontent.com/patrickyanxxxxx/WeatherKit/main/modules/iRingo.WeatherKit.Local.js
+    script_url: https://weatherkit.1976950515yty.workers.dev/modules/iRingo.WeatherKit.Local.js
     env:
       _compat.$argument: endpoint="{{{endpoint}}}"&DataSets="{{{DataSets}}}"&Weather.Provider="{{{Weather.Provider}}}"&WeatherAlerts.Provider="{{{WeatherAlerts.Provider}}}"&NextHour.Provider="{{{NextHour.Provider}}}"&AirQuality.Current.Pollutants.Provider="{{{AirQuality.Current.Pollutants.Provider}}}"&AirQuality.Calculate.Algorithm="{{{AirQuality.Calculate.Algorithm}}}"&API.ColorfulClouds.Token="{{{API.ColorfulClouds.Token}}}"&API.QWeather.Host="{{{API.QWeather.Host}}}"&API.QWeather.Token="{{{API.QWeather.Token}}}"&API.WAQI.Token="{{{API.WAQI.Token}}}"&Storage="{{{Storage}}}"&LogLevel="{{{LogLevel}}}"
 mitm:

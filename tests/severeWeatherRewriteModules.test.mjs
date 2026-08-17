@@ -96,7 +96,7 @@ test("local-parameter Egern module forwards local settings to the Worker", async
     assert.equal(content, egernLocalModule);
     assert.match(content, /AirQuality\.Calculate\.Algorithm: WAQI_InstantCast_US/);
     assert.match(content, /API\.WAQI\.Token: ''/);
-    assert.match(content, /script_url: https:\/\/raw\.githubusercontent\.com\/patrickyanxxxxx\/WeatherKit\/main\/modules\/iRingo\.WeatherKit\.Local\.js/);
+    assert.match(content, /script_url: https:\/\/weatherkit\.1976950515yty\.workers\.dev\/modules\/iRingo\.WeatherKit\.Local\.js/);
     assert.match(content, /_compat\.\$argument: endpoint="\{\{\{endpoint\}\}\}"&DataSets="\{\{\{DataSets\}\}\}"/);
 });
 
@@ -107,7 +107,7 @@ test("local-parameter Loon plugin mirrors the release module arguments", async (
     assert.match(content, /^\[Argument\]$/m);
     assert.match(content, /^AirQuality\.Calculate\.Algorithm = select,"WAQI_InstantCast_US"/m);
     assert.match(content, /^API\.WAQI\.Token = input,""/m);
-    assert.match(content, /script-path=https:\/\/raw\.githubusercontent\.com\/patrickyanxxxxx\/WeatherKit\/main\/modules\/iRingo\.WeatherKit\.Local\.js/);
+    assert.match(content, /script-path=https:\/\/weatherkit\.1976950515yty\.workers\.dev\/modules\/iRingo\.WeatherKit\.Local\.js/);
 });
 
 test("script module templates hook Apple weatherAlerts without QWeather page redirects", async () => {

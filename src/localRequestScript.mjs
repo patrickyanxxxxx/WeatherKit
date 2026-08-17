@@ -1,4 +1,4 @@
-const settings = new URLSearchParams(String($argument ?? ""));
+export default `const settings = new URLSearchParams(String($argument ?? ""));
 const endpoint = settings.get("endpoint")?.replace(/^"|"$/g, "");
 
 if (!endpoint) {
@@ -7,7 +7,8 @@ if (!endpoint) {
     const url = new URL($request.url);
     url.protocol = "https:";
     url.host = endpoint;
-    url.pathname = `/weatherkit.apple.com${url.pathname}`;
+    url.pathname = \`/weatherkit.apple.com\${url.pathname}\`;
     const headers = { ...($request.headers ?? {}), "X-iRingo-WeatherKit-Arguments": String($argument ?? "") };
     $done({ url: url.toString(), headers });
 }
+`;
