@@ -270,7 +270,7 @@ export const airQualityFull = [...airQualityCurrentFull, ...airQualityComparison
 const calculateAlgorithm: Arg = {
     key: "AirQuality.Calculate.Algorithm",
     name: "[iRingo内置算法] 算法",
-    defaultValue: "EU_EAQI",
+    defaultValue: "WAQI_InstantCast_US",
     type: "string",
     options: [
         { key: "None", label: "不转换" },

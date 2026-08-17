@@ -275,7 +275,7 @@ export interface Settings {
              * - `'CN_DEATH_AQHI'` - 中国（致死风险）AQHI
              * - `'CN_DEATH_HK_AQHI'` - 中国（致死风险）+香港AQHI
              *
-             * @defaultValue "EU_EAQI"
+             * @defaultValue "WAQI_InstantCast_US"
              */
             Algorithm?: "None" | "UBA" | "EU_EAQI" | "WAQI_InstantCast_US" | "WAQI_InstantCast_CN" | "WAQI_InstantCast_CN_25_DRAFT" | "CA_AQHI" | "HK_AQHI" | "AQHI_Multi_CN" | "AQHI_Multi_CN_HK" | "CN_DEATH_AQHI" | "CN_DEATH_HK_AQHI";
             /**
