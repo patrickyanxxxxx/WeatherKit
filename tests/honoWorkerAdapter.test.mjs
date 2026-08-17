@@ -20,6 +20,18 @@ test("local modules pass arguments to the Worker in a request header", () => {
 
     HonoWorkerAdapter.buildArgument(request);
 
-    assert.equal(globalThis.$argument, 'AirQuality.Calculate.Algorithm="WAQI_InstantCast_US"');
+    assert.equal(globalThis.$argument.AirQuality.Calculate.Algorithm, "WAQI_InstantCast_US");
     assert.equal(request.headers["x-iringo-weatherkit-arguments"], undefined);
+});
+
+test("Worker arguments parse nested settings from headers", () => {
+    const request = {
+        headers: { "X-iRingo-WeatherKit-Arguments": 'AirQuality.Current.Index.Provider="Calculate"&Storage="Argument"' },
+    };
+
+    HonoWorkerAdapter.buildArgument(request);
+
+    assert.equal(globalThis.$argument.AirQuality.Current.Index.Provider, "Calculate");
+    assert.equal(globalThis.$argument.Storage, "Argument");
+    assert.equal(request.headers["X-iRingo-WeatherKit-Arguments"], undefined);
 });

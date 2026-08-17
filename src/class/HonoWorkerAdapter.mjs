@@ -173,17 +173,28 @@ export default class HonoWorkerAdapter {
      * @returns {WorkerRequest} 标准化请求对象 / Normalized request object.
      */
     static buildArgument($request = {}) {
-        const headerArgument = $request.headers.$argument ?? $request.headers["x-iringo-weatherkit-arguments"];
+        const argumentHeaderKey = Object.keys($request.headers).find(key => ["$argument", "x-iringo-weatherkit-arguments"].includes(key.toLowerCase()));
+        const headerArgument = argumentHeaderKey ? $request.headers[argumentHeaderKey] : undefined;
         if (headerArgument) {
-            globalThis.$argument = headerArgument;
-            delete $request.headers.$argument;
-            delete $request.headers["x-iringo-weatherkit-arguments"];
+            globalThis.$argument = HonoWorkerAdapter.parseArgument(headerArgument);
+            delete $request.headers[argumentHeaderKey];
         } else {
             const url = new URL($request.url);
-            globalThis.$argument = url.search.slice(1);
+            globalThis.$argument = HonoWorkerAdapter.parseArgument(url.search.slice(1));
             [...url.searchParams.keys()].filter(k => /^[A-Z]/.test(k)).forEach(k => url.searchParams.delete(k));
             $request.url = url.toString();
         }
         return $request;
+    }
+
+    static parseArgument(argument = "") {
+        const values = {};
+        for (const [key, value] of new URLSearchParams(String(argument).replace(/^\?/, ""))) {
+            const path = key.replace(/\[([^\[\]]+)\]/g, ".$1").split(".");
+            let target = values;
+            for (const segment of path.slice(0, -1)) target = target[segment] ??= {};
+            target[path.at(-1)] = value.replaceAll('"', "");
+        }
+        return values;
     }
 }
