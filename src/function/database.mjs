@@ -8,8 +8,9 @@ export default {
             NextHour: { Provider: "ColorfulClouds" },
             AirQuality: {
                 Current: { Pollutants: { Provider: "ColorfulClouds", Units: { Replace: [], Mode: "Scale" } }, Index: { Replace: ["HJ6332012"], Provider: "Calculate", ForceCNPrimaryPollutants: true } },
-                Comparison: { ReplaceWhenCurrentChange: false, Yesterday: { PollutantsProvider: "QWeather", IndexProvider: "ColorfulCloudsUS" } },
-                Calculate: { Algorithm: "EU_EAQI", AllowOverRange: true },
+                // Keep both days on the same EPA AQI scale so the comparison remains meaningful.
+                Comparison: { ReplaceWhenCurrentChange: true, Yesterday: { PollutantsProvider: "QWeather", IndexProvider: "Calculate" } },
+                Calculate: { Algorithm: "WAQI_InstantCast_US", AllowOverRange: true },
             },
             API: { WAQI: { Token: null }, QWeather: { Token: "bdd98ec1d87747f3a2e8b1741a5af796", Host: "devapi.qweather.com" }, ColorfulClouds: { Token: "Y2FpeXVuX25vdGlmeQ==" } },
         },
