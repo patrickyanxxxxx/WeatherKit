@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import egernModule from "../src/egernModule.mjs";
 
 const modulesDirectory = new URL("../modules/", import.meta.url);
 const configurableModules = ["iRingo.WeatherKit.Rewrite.sgmodule", "iRingo.WeatherKit.Rewrite.srmodule", "iRingo.WeatherKit.Rewrite.yaml"];
@@ -83,6 +84,7 @@ test("WeatherAlerts hooks accept QWeather location and API coordinate ids after 
 
 test("Egern keeps the API hook without QWeather page redirects", async () => {
     const content = await readFile(new URL("iRingo.WeatherKit.Rewrite.yaml", modulesDirectory), "utf8");
+    assert.equal(egernModule, content);
     assert.match(content, /match: \^https\?:\\\/\\\/weatherkit\\\.apple\\\.com\\\/api\\\/v1\\\/weatherAlerts\\\?\([\s\S]*?location: https:\/\/\{\{\{endpoint\}\}\}\/api\/v1\/weatherAlerts\?\$1\nmitm:/);
 });
 
