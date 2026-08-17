@@ -1,0 +1,68 @@
+name: ' iRingo: 🌤 WeatherKit (Local Parameters)'
+description: |-
+  与 v3.3.0 发行模块相同的本地参数界面，数据计算由指定 Worker 完成。
+compat_arguments:
+  endpoint: weatherkit.1976950515yty.workers.dev
+  DataSets: airQuality,currentWeather,forecastDaily,forecastHourly,forecastNextHour,weatherAlerts
+  Weather.Provider: ColorfulClouds
+  WeatherAlerts.Provider: QWeatherWeb
+  NextHour.Provider: ColorfulClouds
+  AirQuality.Current.Pollutants.Provider: ColorfulClouds
+  AirQuality.Calculate.Algorithm: WAQI_InstantCast_US
+  API.ColorfulClouds.Token: ''
+  API.QWeather.Host: devapi.qweather.com
+  API.QWeather.Token: ''
+  API.WAQI.Token: ''
+  Storage: Argument
+  LogLevel: WARN
+compat_arguments_desc: |
+  endpoint: Worker 服务端点。
+  DataSets: 可在本地编辑。
+  Weather.Provider: WeatherKit、QWeather
+  WeatherAlerts.Provider: WeatherKit、QWeather、ColorfulClouds
+  NextHour.Provider: WeatherKit、QWeather
+  AirQuality.Current.Pollutants.Provider: QWeather
+  AirQuality.Calculate.Algorithm: 美标 AQI（默认）、None、UBA、EU_EAQI、WAQI_InstantCast_CN、WAQI_InstantCast_CN_25_DRAFT、CA_AQHI、HK_AQHI、AQHI_Multi_CN、AQHI_Multi_CN_HK、CN_DEATH_AQHI、CN_DEATH_HK_AQHI
+  API.ColorfulClouds.Token: 可在本地编辑。
+  API.QWeather.Host: 可在本地编辑。
+  API.QWeather.Token: 可在本地编辑。
+  API.WAQI.Token: 可在本地编辑。
+  Storage: PersistentStore、database
+  LogLevel: OFF、ERROR、INFO、DEBUG、ALL
+  API 令牌仅通过 HTTPS 请求头发送给 Worker，不会附加到 URL。
+author: VirgilClyne[https://github.com/VirgilClyne],WordlessEcho[https://github.com/WordlessEcho],001[https://github.com/001ProMax],hhh2210[https://github.com/hhh2210]
+homepage: https://github.com/patrickyanxxxxx/WeatherKit
+icon: https://developer.apple.com/assets/elements/icons/weatherkit/weatherkit-128x128.png
+rules:
+- domain:
+    match: weather-analytics-events.apple.com
+    policy: REJECT-DROP
+scriptings:
+- http_request:
+    name: WeatherKit.availability.request
+    match: ^https?:\/\/weatherkit\.apple\.com\/api\/v1\/availability\/
+    script_url: https://raw.githubusercontent.com/patrickyanxxxxx/WeatherKit/main/modules/iRingo.WeatherKit.Local.js
+    env:
+      _compat.$argument: endpoint="{{{endpoint}}}"&DataSets="{{{DataSets}}}"&Weather.Provider="{{{Weather.Provider}}}"&WeatherAlerts.Provider="{{{WeatherAlerts.Provider}}}"&NextHour.Provider="{{{NextHour.Provider}}}"&AirQuality.Current.Pollutants.Provider="{{{AirQuality.Current.Pollutants.Provider}}}"&AirQuality.Calculate.Algorithm="{{{AirQuality.Calculate.Algorithm}}}"&API.ColorfulClouds.Token="{{{API.ColorfulClouds.Token}}}"&API.QWeather.Host="{{{API.QWeather.Host}}}"&API.QWeather.Token="{{{API.QWeather.Token}}}"&API.WAQI.Token="{{{API.WAQI.Token}}}"&Storage="{{{Storage}}}"&LogLevel="{{{LogLevel}}}"
+- http_request:
+    name: WeatherKit.airQualityScale.request
+    match: ^https?:\/\/weatherkit\.apple\.com\/api\/v1\/airQualityScale\/
+    script_url: https://raw.githubusercontent.com/patrickyanxxxxx/WeatherKit/main/modules/iRingo.WeatherKit.Local.js
+    env:
+      _compat.$argument: endpoint="{{{endpoint}}}"&DataSets="{{{DataSets}}}"&Weather.Provider="{{{Weather.Provider}}}"&WeatherAlerts.Provider="{{{WeatherAlerts.Provider}}}"&NextHour.Provider="{{{NextHour.Provider}}}"&AirQuality.Current.Pollutants.Provider="{{{AirQuality.Current.Pollutants.Provider}}}"&AirQuality.Calculate.Algorithm="{{{AirQuality.Calculate.Algorithm}}}"&API.ColorfulClouds.Token="{{{API.ColorfulClouds.Token}}}"&API.QWeather.Host="{{{API.QWeather.Host}}}"&API.QWeather.Token="{{{API.QWeather.Token}}}"&API.WAQI.Token="{{{API.WAQI.Token}}}"&Storage="{{{Storage}}}"&LogLevel="{{{LogLevel}}}"
+- http_request:
+    name: WeatherKit.weatherAlerts.request
+    match: ^https?:\/\/weatherkit\.apple\.com\/api\/v1\/weatherAlerts\?
+    script_url: https://raw.githubusercontent.com/patrickyanxxxxx/WeatherKit/main/modules/iRingo.WeatherKit.Local.js
+    env:
+      _compat.$argument: endpoint="{{{endpoint}}}"&DataSets="{{{DataSets}}}"&Weather.Provider="{{{Weather.Provider}}}"&WeatherAlerts.Provider="{{{WeatherAlerts.Provider}}}"&NextHour.Provider="{{{NextHour.Provider}}}"&AirQuality.Current.Pollutants.Provider="{{{AirQuality.Current.Pollutants.Provider}}}"&AirQuality.Calculate.Algorithm="{{{AirQuality.Calculate.Algorithm}}}"&API.ColorfulClouds.Token="{{{API.ColorfulClouds.Token}}}"&API.QWeather.Host="{{{API.QWeather.Host}}}"&API.QWeather.Token="{{{API.QWeather.Token}}}"&API.WAQI.Token="{{{API.WAQI.Token}}}"&Storage="{{{Storage}}}"&LogLevel="{{{LogLevel}}}"
+- http_request:
+    name: WeatherKit.weather.request
+    match: ^https?:\/\/weatherkit\.apple\.com\/api\/v2\/weather\/
+    script_url: https://raw.githubusercontent.com/patrickyanxxxxx/WeatherKit/main/modules/iRingo.WeatherKit.Local.js
+    env:
+      _compat.$argument: endpoint="{{{endpoint}}}"&DataSets="{{{DataSets}}}"&Weather.Provider="{{{Weather.Provider}}}"&WeatherAlerts.Provider="{{{WeatherAlerts.Provider}}}"&NextHour.Provider="{{{NextHour.Provider}}}"&AirQuality.Current.Pollutants.Provider="{{{AirQuality.Current.Pollutants.Provider}}}"&AirQuality.Calculate.Algorithm="{{{AirQuality.Calculate.Algorithm}}}"&API.ColorfulClouds.Token="{{{API.ColorfulClouds.Token}}}"&API.QWeather.Host="{{{API.QWeather.Host}}}"&API.QWeather.Token="{{{API.QWeather.Token}}}"&API.WAQI.Token="{{{API.WAQI.Token}}}"&Storage="{{{Storage}}}"&LogLevel="{{{LogLevel}}}"
+mitm:
+  hostnames:
+    includes:
+    - weatherkit.apple.com

@@ -47,6 +47,7 @@
         "build:release-args": "arguments-builder build -c arguments-builder.release.config.ts",
         "build:full-args": "arguments-builder boxjs -c arguments-builder.full.config.ts",
         "build:args:rewrite": "arguments-builder build --config arguments-builder.rewrite.config.ts",
+        "build:egern-local": "node ./scripts/build-egern-local-module.mjs",
         "build:args": "npm-run-all --serial build:release-args build:full-args",
         "dts": "arguments-builder dts -c arguments-builder.full.config.ts",
         "submodule": "git submodule update --remote",

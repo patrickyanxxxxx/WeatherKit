@@ -173,9 +173,11 @@ export default class HonoWorkerAdapter {
      * @returns {WorkerRequest} 标准化请求对象 / Normalized request object.
      */
     static buildArgument($request = {}) {
-        if ($request.headers.$argument) {
-            globalThis.$argument = $request.headers.$argument;
+        const headerArgument = $request.headers.$argument ?? $request.headers["x-iringo-weatherkit-arguments"];
+        if (headerArgument) {
+            globalThis.$argument = headerArgument;
             delete $request.headers.$argument;
+            delete $request.headers["x-iringo-weatherkit-arguments"];
         } else {
             const url = new URL($request.url);
             globalThis.$argument = url.search.slice(1);

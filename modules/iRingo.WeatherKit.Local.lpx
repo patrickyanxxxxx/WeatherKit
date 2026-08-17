@@ -1,0 +1,31 @@
+#!name =  iRingo: 🌤 WeatherKit (Local Parameters)
+#!desc = 与 v3.3.0 发行模块相同的本地参数界面，数据计算由指定 Worker 完成。
+#!homepage = https://github.com/patrickyanxxxxx/WeatherKit
+#!icon = https://developer.apple.com/assets/elements/icons/weatherkit/weatherkit-128x128.png
+
+[Argument]
+endpoint = input,"weatherkit.1976950515yty.workers.dev"
+DataSets = input,"airQuality,currentWeather,forecastDaily,forecastHourly,forecastNextHour,weatherAlerts"
+Weather.Provider = select,"ColorfulClouds","WeatherKit","QWeather"
+WeatherAlerts.Provider = select,"QWeatherWeb","WeatherKit","QWeather","ColorfulClouds"
+NextHour.Provider = select,"ColorfulClouds","WeatherKit","QWeather"
+AirQuality.Current.Pollutants.Provider = select,"ColorfulClouds","QWeather"
+AirQuality.Calculate.Algorithm = select,"WAQI_InstantCast_US","None","UBA","EU_EAQI","WAQI_InstantCast_CN","WAQI_InstantCast_CN_25_DRAFT","CA_AQHI","HK_AQHI","AQHI_Multi_CN","AQHI_Multi_CN_HK","CN_DEATH_AQHI","CN_DEATH_HK_AQHI"
+API.ColorfulClouds.Token = input,""
+API.QWeather.Host = input,"devapi.qweather.com"
+API.QWeather.Token = input,""
+API.WAQI.Token = input,""
+Storage = select,"Argument","PersistentStore","database"
+LogLevel = select,"WARN","OFF","ERROR","INFO","DEBUG","ALL"
+
+[Rule]
+DOMAIN,weather-analytics-events.apple.com,REJECT-DROP
+
+[Script]
+http-request ^https?:\/\/weatherkit\.apple\.com\/api\/v1\/availability\/ script-path=https://raw.githubusercontent.com/patrickyanxxxxx/WeatherKit/main/modules/iRingo.WeatherKit.Local.js, tag=WeatherKit.local.request, argument=[{endpoint},{DataSets},{Weather.Provider},{WeatherAlerts.Provider},{NextHour.Provider},{AirQuality.Current.Pollutants.Provider},{AirQuality.Calculate.Algorithm},{API.ColorfulClouds.Token},{API.QWeather.Host},{API.QWeather.Token},{API.WAQI.Token},{Storage},{LogLevel}]
+http-request ^https?:\/\/weatherkit\.apple\.com\/api\/v1\/airQualityScale\/ script-path=https://raw.githubusercontent.com/patrickyanxxxxx/WeatherKit/main/modules/iRingo.WeatherKit.Local.js, tag=WeatherKit.local.request, argument=[{endpoint},{DataSets},{Weather.Provider},{WeatherAlerts.Provider},{NextHour.Provider},{AirQuality.Current.Pollutants.Provider},{AirQuality.Calculate.Algorithm},{API.ColorfulClouds.Token},{API.QWeather.Host},{API.QWeather.Token},{API.WAQI.Token},{Storage},{LogLevel}]
+http-request ^https?:\/\/weatherkit\.apple\.com\/api\/v1\/weatherAlerts\? script-path=https://raw.githubusercontent.com/patrickyanxxxxx/WeatherKit/main/modules/iRingo.WeatherKit.Local.js, tag=WeatherKit.local.request, argument=[{endpoint},{DataSets},{Weather.Provider},{WeatherAlerts.Provider},{NextHour.Provider},{AirQuality.Current.Pollutants.Provider},{AirQuality.Calculate.Algorithm},{API.ColorfulClouds.Token},{API.QWeather.Host},{API.QWeather.Token},{API.WAQI.Token},{Storage},{LogLevel}]
+http-request ^https?:\/\/weatherkit\.apple\.com\/api\/v2\/weather\/ script-path=https://raw.githubusercontent.com/patrickyanxxxxx/WeatherKit/main/modules/iRingo.WeatherKit.Local.js, tag=WeatherKit.local.request, argument=[{endpoint},{DataSets},{Weather.Provider},{WeatherAlerts.Provider},{NextHour.Provider},{AirQuality.Current.Pollutants.Provider},{AirQuality.Calculate.Algorithm},{API.ColorfulClouds.Token},{API.QWeather.Host},{API.QWeather.Token},{API.WAQI.Token},{Storage},{LogLevel}]
+
+[MITM]
+hostname = weatherkit.apple.com

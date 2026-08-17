@@ -12,3 +12,14 @@ test("WeatherKit endpoints route requests to Apple", () => {
         assert.equal(url.toString(), "https://weatherkit.apple.com/api/v1/weatherAlerts?ids=jianye-101190110", input);
     }
 });
+
+test("local modules pass arguments to the Worker in a request header", () => {
+    const request = {
+        headers: { "x-iringo-weatherkit-arguments": 'AirQuality.Calculate.Algorithm="WAQI_InstantCast_US"' },
+    };
+
+    HonoWorkerAdapter.buildArgument(request);
+
+    assert.equal(globalThis.$argument, 'AirQuality.Calculate.Algorithm="WAQI_InstantCast_US"');
+    assert.equal(request.headers["x-iringo-weatherkit-arguments"], undefined);
+});

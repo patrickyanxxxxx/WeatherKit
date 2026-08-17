@@ -1,5 +1,6 @@
 import { Hono } from "hono/tiny";
 import { fetch } from "@nsnanocat/util";
+import egernLocalModule from "./egernLocalModule.mjs";
 import egernModule from "./egernModule.mjs";
 import HonoWorkerAdapter from "./class/HonoWorkerAdapter.mjs";
 import { Request } from "./process/Request.mjs";
@@ -10,6 +11,12 @@ export default new Hono()
     .get("/", c => c.text("OK"))
     .get("/modules/iRingo.WeatherKit.Rewrite.yaml", c =>
         c.body(egernModule, 200, {
+            "Cache-Control": "public, max-age=300",
+            "Content-Type": "application/yaml; charset=utf-8",
+        }),
+    )
+    .get("/modules/iRingo.WeatherKit.Local.yaml", c =>
+        c.body(egernLocalModule, 200, {
             "Cache-Control": "public, max-age=300",
             "Content-Type": "application/yaml; charset=utf-8",
         }),
