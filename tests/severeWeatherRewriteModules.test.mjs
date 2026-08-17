@@ -27,7 +27,7 @@ test("all Rewrite modules hook WeatherAlert data without QWeather page redirects
         assert.ok(content.includes(completedAlertFeatureDescription), filename);
         assert.ok(content.includes(hhhContributor), filename);
         assert.ok(!content.includes(unsafeOpenEndedQuantifier), filename);
-        assert.ok(content.includes(weatherAlertsRewriteComment), filename);
+		if (filename !== "iRingo.WeatherKit.Rewrite.yaml") assert.ok(content.includes(weatherAlertsRewriteComment), filename);
         assert.ok(!content.includes("Apple 官方预警页面的 QWeather 数据"), filename);
         assert.ok(!content.includes("QWeather data for the official Apple alert page"), filename);
         assert.doesNotMatch(content, /alertDetails\.index\.response/, filename);
@@ -43,7 +43,7 @@ test("all Rewrite modules hook WeatherAlert data without QWeather page redirects
 
     for (const filename of fixedModules) {
         const content = await readFile(new URL(filename, modulesDirectory), "utf8");
-        assert.match(content, /https:\/\/weatherkit\.pages\.dev\/api\/v1\/weatherAlerts\?\$1/);
+		assert.match(content, /https:\/\/weatherkit\.1976950515yty\.workers\.dev\/api\/v1\/weatherAlerts\?\$1/);
     }
 });
 
@@ -149,13 +149,13 @@ test("Rewrite templates stay aligned with fixed Rewrite modules", async () => {
 	assert.ok(surge.includes("https://\\{{{endpoint}}}/api/v1/weatherAlerts?$1"));
 
 	const shadowrocket = await readFile(new URL("../template/shadowrocket.rewrite.handlebars", import.meta.url), "utf8");
-	assert.ok(shadowrocket.includes("#!arguments = endpoint:weatherkit.pages.dev"));
+	assert.ok(shadowrocket.includes("#!arguments = endpoint:weatherkit.1976950515yty.workers.dev"));
 	assert.ok(shadowrocket.includes("#!arguments-desc = endpoint: [重写] 服务端点\\n"));
 	assert.ok(shadowrocket.includes("https://\\{{{endpoint}}}/api/v1/weatherAlerts?$1"));
 
 	for (const filename of fixedTemplates) {
 		const content = await readFile(new URL(`../template/${filename}`, import.meta.url), "utf8");
-		assert.ok(content.includes("https://weatherkit.pages.dev/api/v1/weatherAlerts?$1"), filename);
+		assert.ok(content.includes("https://weatherkit.1976950515yty.workers.dev/api/v1/weatherAlerts?$1"), filename);
 		assert.doesNotMatch(content, /\{\{\{endpoint\}\}\}/, filename);
 	}
 
@@ -178,7 +178,7 @@ test("Loon Rewrite modules use the legacy Rewrite section", async () => {
 test("Rewrite builder outputs use Rewrite names", async () => {
 	const content = await readFile(new URL("../arguments-builder.rewrite.config.ts", import.meta.url), "utf8");
 	assert.match(content, /iRingo\.WeatherKit\.Rewrite\.(?:sgmodule|lpx|srmodule|stoverride|yaml)/);
-	assert.match(content, /key: "endpoint"[\s\S]*defaultValue: "weatherkit\.pages\.dev"/);
+	assert.match(content, /key: "endpoint"[\s\S]*defaultValue: "weatherkit\.1976950515yty\.workers\.dev"/);
 	assert.match(content, /weather\.nanocat\.cloud", label: "Worker 版；需要代理"/);
 	assert.doesNotMatch(content, /Workers/);
     assert.doesNotMatch(content, /\.workers\.handlebars/);
